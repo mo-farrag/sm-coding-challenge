@@ -38,7 +38,7 @@ There is no limit to what is acceptable as far as libraries, changes, and method
 
 # Solution:
 
-##Proposed solution description:
+## Proposed solution description:
 
 - follow the singleton pattern for the data service class to minimize the times that our project is calling the remote end point for each request and use an in-memory object of type `DataResponseModel`.
 - all the requests will have an access to that data object throw the data service class and will filter the data based on the player id passed to it.
@@ -47,7 +47,7 @@ There is no limit to what is acceptable as far as libraries, changes, and method
 
 #### advanced approch, is to keep the same design but replace the in-memory object with a sql database, and keep all the historical versions of the fetched data in it.
 
-##Design:
+## Design:
 
 - Splite the `DataProviderImpl` class into 2 classes, the first one `DataStoreService` which is a singleton service and is responsable for connecting to the remote endpoint to fetch the data from it and store the data in a shared object in the memory of type `DataResponseModel`.
 - the second class is `PlayerService`, which is a logic class between our `HomeController` and the `DataStoreService`.
@@ -58,5 +58,5 @@ There is no limit to what is acceptable as far as libraries, changes, and method
 
 - spliting the responsibilities of `DataProviderImpl` (logic and calling remote endpoint) will minimize the times of requesting the remote data endpoint and prevent multiple calls to it. and put the responsibility of fetching data to the `DataHostedService` and singleton class `DataStoreService`.
 
-###Class diagram:
+### Class diagram:
 ![Class_Diagram.png](/Class_Diagram.png)
