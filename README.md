@@ -52,11 +52,13 @@ There is no limit to what is acceptable as far as libraries, changes, and method
 - Splite the `DataProviderImpl` class into 2 classes, the first one `DataStoreService` which is a singleton service and is responsable for connecting to the remote endpoint to fetch the data from it and store the data in a shared object in the memory of type `DataResponseModel`.
 - the second class is `PlayerService`, which is a logic class between our `HomeController` and the `DataStoreService`.
 - `DataHostedService` inherits from `IHostedService` and `IDisposable` to work in the background every 1 week to fetch the new data from the remote endpoint.
-- the `GetLatestPlayerById` method in the `PlayerService` will force to call the remote data endpoint first to get the latest data then continue with the filtering the data based on the passed ids.
+- the `GetLatestPlayerById` method in the `PlayerService` will force to call the remote data endpoint first to get the latest data then continue with the filtering the data based on the passed ids, but other methods will access the shared data object without calling the remote endpoint.
 
 ### Design benefits:
 
 - spliting the responsibilities of `DataProviderImpl` (logic and calling remote endpoint) will minimize the times of requesting the remote data endpoint and prevent multiple calls to it. and put the responsibility of fetching data to the `DataHostedService` and singleton class `DataStoreService`.
+- keep last fetched data available to all requests even if the remote endpoint is down.
 
 ### Class diagram:
+
 ![Class_Diagram.png](/Class_Diagram.png)
